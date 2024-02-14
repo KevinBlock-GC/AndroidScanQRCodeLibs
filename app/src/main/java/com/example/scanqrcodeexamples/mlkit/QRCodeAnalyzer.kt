@@ -33,7 +33,10 @@ class QRCodeAnalyzer(private val onQRCodeScanned: (String) -> Unit) : ImageAnaly
                 .addOnFailureListener {
                     Log.d("QRCodeAnalyzer", it.message ?: "Unknown error")
                 }
-            image.close()
+                .addOnCompleteListener {
+                    image.close()
+                    scanner.close()
+                }
         }
     }
 }
